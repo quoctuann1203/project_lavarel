@@ -15,6 +15,10 @@ class CreatePhoneOrderTable extends Migration
     {
         Schema::create('phone_order', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('phone_id');
+            $table->foreignId('order_id');
+            $table->int('price');
+            $table->int('quantity');
             $table->timestamps();
         });
     }
