@@ -16,8 +16,8 @@ class PhoneController extends Controller
      */
     public function index()
     {
-        $items = Phone::all();
-        return View('phone.index',['items'=>$items]);
+        $items = Phone::orderBy('created_at', 'desc')->paginate(10);
+        return View('phone.index', ['items' => $items]);
     }
 
     /**
@@ -27,7 +27,8 @@ class PhoneController extends Controller
      */
     public function create()
     {
-        //
+        $item = new Phone();
+        return View('phone.form', ["item" => $item, 'type' => 'add']);
     }
 
     /**
@@ -38,7 +39,22 @@ class PhoneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->runValidate($request);
+        Phone::create($request->all());
+        return redirect()->back()->with(['success' => 'Create success!']);
+    
+
+    }
+
+    public function runValidate(Request $request)
+    {
+        return $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'inventory_quantity' => 'required',
+            'provider_id' => 'required',
+            'description' => 'required',
+        ]);
     }
 
     /**
@@ -49,7 +65,6 @@ class PhoneController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -60,7 +75,8 @@ class PhoneController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Phone::find($id);
+        return View('phone.form', ["item" => $item, 'type' => 'edit']);
     }
 
     /**
@@ -72,7 +88,10 @@ class PhoneController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->runValidate($request);
+        $item = Phone::find($id);
+        $item->update($request->all());
+        return redirect()->back()->with(['success' => 'Update success!']);
     }
 
     /**
@@ -83,7 +102,7 @@ class PhoneController extends Controller
      */
     public function destroy($id)
     {
-        Phone::where('id',$id) -> delete();
+        Phone::where('id', $id)->delete();
         return Redirect(route('phones.index'));
     }
 }

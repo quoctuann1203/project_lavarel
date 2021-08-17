@@ -1,7 +1,8 @@
 @extends('layouts.app1')
 @section('content')
-
+    
     <h3 style="margin: 20px 0"> Create Profile User</h3>
+    <x-show-error></x-show-error>
     <form class="user" action="{{ route('profiles.store') }}" method="POST">
         @csrf
         <input type="hidden" name="user_id" value="{{ $user_id }}">

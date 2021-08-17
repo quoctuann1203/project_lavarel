@@ -28,7 +28,7 @@ class ProfileFactory extends Factory
             'birthday' => $this->faker->date(),
             'gender' => $this->faker->name(),
             'avatar' => $this->faker->filePath(),
-            'user_id' =>  User::factory()->create()->id
+            'user_id' =>  User::factory()->create()->id,
         ];
     }
 }

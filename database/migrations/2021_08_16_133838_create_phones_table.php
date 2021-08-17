@@ -16,11 +16,11 @@ class CreatePhonesTable extends Migration
         Schema::create('phones', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('provide');
-            $table->int('price');
-            $table->string('image');
-            $table->int('inventory_quantity');
-            $table->text('description');
+            $table->string('provider_id');
+            $table->integer('price');
+            $table->integer('inventory_quantity')->default(1);
+            $table->string('image')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

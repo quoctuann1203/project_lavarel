@@ -27,7 +27,6 @@ class ProfileController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -38,31 +37,35 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        print_r($request->all());
 
-        $userId = $request->input('user_id');
-        $item = [
-            'user_id' => $userId,
-            'full_name' => $request->input('full_name'),
-            'address' => $request->input('address'),
-            'avatar' => $request->input('avatar'),
-            'gender' => $request->input('gender'),
-            'birthday' => $request->input('birthday'),
-        ];
-        //$profile = new Profile();
-        //$profile->full_name = $request->input('full_name');
-       // $profile->address = $request->input('address');
-       // $profile->birthday = $request->input('birthday');
-       // var_dump($profile);
-        $affected = DB::table('profiles')
-            ->insert($item);
-        return redirect()->route('profiles.show', ["profile" => $userId]);
+        $validate = $this->runValidate($request);
+        if ($validate) {
+            $userId = $request->input('user_id');
+            $item = [
+                'user_id' => $userId,
+                'full_name' => $request->input('full_name'),
+                'address' => $request->input('address'),
+                'avatar' => $request->input('avatar'),
+                'gender' => $request->input('gender'),
+                'birthday' => $request->input('birthday'),
+            ];
+            //$profile = new Profile();
+            //$profile->full_name = $request->input('full_name');
+            // $profile->address = $request->input('address');
+            // $profile->birthday = $request->input('birthday');
+            // var_dump($profile);
+            $affected = DB::table('profiles')
+                ->insert($item);
+            return redirect()->route('profiles.show', ["profile" => $userId]);
+        }
+        $msg = "cap nhat that bai";
+        return back()->with('error', $msg);
     }
 
     public function createProfile($id)
     {
         $profile = new Profile();
-        return View('profile.create', ["profile" => $profile, 'user_id'=> $id]);
+        return View('profile.create', ["profile" => $profile, 'user_id' => $id]);
     }
 
     /**
@@ -73,9 +76,9 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        $profile =  DB::table('profiles')->where('user_id',$id)->first();
+        $profile =  DB::table('profiles')->where('user_id', $id)->first();
         $user =  DB::table('users')->find($id);
-        return View('profile.show',['profile'=>$profile , 'user' => $user]);
+        return View('profile.show', ['profile' => $profile, 'user' => $user]);
     }
 
     /**
@@ -87,7 +90,7 @@ class ProfileController extends Controller
     public function edit($id)
     {
         $profile =  DB::table('profiles')->find($id);
-        return View('profile.edit',['profile'=>$profile]);
+        return View('profile.edit', ['profile' => $profile]);
     }
 
     /**
@@ -99,16 +102,9 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validate = $request->validate([
-        'avatar' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-			'birthday'=>'nullable|date',
-            'full_name' =>'required',
-            'address' =>'required',
-            'gender' =>'required',
-            'avatar' =>'required'
-        ]);
+        $validate = $this->runValidate($request);
 
-       /* $profile = new Profile();
+        /* $profile = new Profile();
         $profile->full_name = $request->input('full_name');
         $profile->address = $request->input('address');
         $profile->birthday = $request->input('birthday');
@@ -126,7 +122,7 @@ class ProfileController extends Controller
         return redirect()->route('profiles.show', [$id]);
 //        return Redirect(route('profiles.show'));;
        */
-        if($validate) {
+        if ($validate) {
             $profile = Profile::find($id);
             $profile->full_name = $request->input('full_name');
             $profile->address = $request->input('address');
@@ -140,13 +136,24 @@ class ProfileController extends Controller
                 // $filepath='uploads/'+$fileName --> $profile->avatar = 'storage/uploads/tenfile --> đường dẫn hình trong thư mục public
             }
             $profile->save(); //lưu
-            return back()//trả về trang trước đó
-            ->with('success', 'Profile1 has updated.')//lưu thông báo kèm theo để hiển thị trên view
-            ->with('file', $fileName);
+            return back() //trả về trang trước đó
+                ->with('success', 'Profile1 has updated.') //lưu thông báo kèm theo để hiển thị trên view
+                ->with('file', $fileName);
         }
         $msg = "cap nhat that bai";
-        return back() -> with('error',$msg);
+        return back()->with('error', $msg);
+    }
 
+    public function runValidate(Request $request)
+    {
+        return $request->validate([
+            'avatar' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+            'birthday' => 'nullable|date',
+            'full_name' => 'required',
+            'address' => 'required',
+            'gender' => 'required',
+            'avatar' => 'required'
+        ]);
     }
 
     /**

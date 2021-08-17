@@ -30,4 +30,7 @@
                 @endforeach
         </tbody>
     </table>
+    <div class="d-flex justify-content-end">
+        {{ $users->withQueryString()->links('vendor.pagination.bootstrap-4') }}
+    </div>
 @endsection

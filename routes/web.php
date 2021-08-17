@@ -35,5 +35,8 @@ Route::get('/users', function (){
 
 Route::resource('users', UserController::class);
 Route::resource('profiles', ProfileController::class);
+
+Route::resource('phones', \App\Http\Controllers\PhoneController::class);
+
 Route::get('/profiles/{id}/create',[ProfileController::class, 'createprofile']) -> name('create-profile');
-Route::resource('articles', ArticleController::class);
+

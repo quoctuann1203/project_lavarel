@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -15,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->get();
+        $users = User::orderBy('id', 'asc')->paginate(10);
+//        $users = DB::table('users')->get();
         return View('user.index',['users'=>$users]);
     }
 

@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('note');
-            $table->string('total');
+            $table->string('total')->default(0);
             $table->string('status');
             $table->string('shipping_method');
             $table->string('payment_method');
