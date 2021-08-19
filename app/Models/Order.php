@@ -15,7 +15,7 @@ class Order extends Model
     }
 
     public function phones() {
-        return $this->belongsToMany(Phone::class);
+        return $this->belongsToMany(Phone::class)->withPivot(['price', 'quantity']);
     }
 
 }

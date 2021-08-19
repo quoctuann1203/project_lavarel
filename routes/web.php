@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PhoneController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\DB;
@@ -36,7 +38,11 @@ Route::get('/users', function (){
 Route::resource('users', UserController::class);
 Route::resource('profiles', ProfileController::class);
 
-Route::resource('phones', \App\Http\Controllers\PhoneController::class);
+Route::resource('phones',PhoneController::class);
 
 Route::get('/profiles/{id}/create',[ProfileController::class, 'createprofile']) -> name('create-profile');
+
+Route::resource('providers',ProviderController::class);
+Route::resource('orders',OrderController::class);
+
 

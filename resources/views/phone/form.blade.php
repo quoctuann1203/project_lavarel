@@ -33,7 +33,7 @@ $formMethod = $type == 'add' ? 'post' : 'put';
             <div class="form-group col-md-6" style="margin-bottom: 4px">
                 <label for="description">Provider</label>
                 <select class="custom-select" name="provider_id" id="">
-                    <option value="1">Samsung</option>
+                    <option value="{{$item->proivder}}"></option>
                 </select>
             </div>
 

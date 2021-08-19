@@ -4,7 +4,7 @@
     <!-- lấy thông tin thông báo đã thêm vào session để hiển thị -->
     <x-alert></x-alert>
     <!-- lấy thông tin lỗi khi validate hiển thị trên màn hình -->
-    <show-error></show-error>
+    <x-show-error></x-show-error>
     <form class="user" action="{{ route('profiles.update', ['profile' => $profile->id]) }}" method="POST"
         enctype="multipart/form-data">
         @csrf
@@ -36,11 +36,16 @@
             </div>
         </div>
         <div class="custom-file">
-            <input type="file" class="custom-file-input " id="avatar" name="avatar" value="{{ $profile->avatar }}">
-            <label for="avatar" class="custom-file-label">Avatar</label>
+            <input type="file" class="custom-file-input " id="avatar" name="avatar">
+            <label for="avatar" class="custom-file-label">{{ $profile->avatar }}</label>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6" style="margin: 4px 0">
+                <img src="{{ $profile->avatar }}" alt="" width="300px" height="300px">
+            </div>
         </div>
         <button type="button" class="btn btn-secondary" style="margin-top: 8px">
-            <a style="text-decoration: none; color: #000000" href="/profiles/{{ $profile->id }}">Back</a>
+            <a style="text-decoration: none; color: #000000" href="{{ url() -> previous() }}">Back</a>
         </button>
         <input style="margin-top: 8px" type="submit" class="btn btn-primary" value="Update">
     </form>

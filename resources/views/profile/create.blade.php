@@ -2,6 +2,7 @@
 @section('content')
     
     <h3 style="margin: 20px 0"> Create Profile User</h3>
+    <x-alert></x-alert>
     <x-show-error></x-show-error>
     <form class="user" action="{{ route('profiles.store') }}" method="POST">
         @csrf

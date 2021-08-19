@@ -25,7 +25,6 @@
                                 <button type="submit">Delete</button>
                             </form>
                         </td>
-
                     </tr>
                 @endforeach
         </tbody>

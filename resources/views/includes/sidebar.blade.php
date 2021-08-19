@@ -11,10 +11,16 @@
                     Product
                 </a>
 
-                <a class="nav-link collapsed" href="{{Route('users.index')}} data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                <a class="nav-link collapsed" href="{{Route('providers.index')}}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                    Provider
+                </a>
+
+                <a class="nav-link collapsed" href="# ":>
                     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                     Order
                 </a>
+
 
             </div>
         </div>

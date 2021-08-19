@@ -17,7 +17,7 @@
             <p class="avatar-user"> avatar : {{$profile -> avatar}} </p>
 
             <button type="button" class="btn btn-secondary">
-                <a style="text-decoration: none; color: black" href="/users">Back</a>
+                <a style="text-decoration: none; color: black" href="{{route('users.index')}}">Back</a>
             </button>
             <button type="button" class="btn btn-secondary">
                 <a style="text-decoration: none; color: black" href="/profiles/{{$profile->id}}/edit">Edit</a>
