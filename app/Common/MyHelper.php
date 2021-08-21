@@ -18,7 +18,7 @@ class MyHelper
         
         foreach($data as $key=>$item){
       
-            $selected = $value == $key ? 'selected' : '';
+            $selected = $value.'' == $key.'' ? 'selected' : '';
             $options .= '<option '.$selected.' value="'.$key.'">'.$item.'</option>';
         }
         return '<select class="form-select" name="'.$name.'">'.$options.'</select>';

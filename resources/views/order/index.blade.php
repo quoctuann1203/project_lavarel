@@ -1,8 +1,7 @@
 @extends('layouts.app1')
 @section('content')
     <div class="d-flex justify-content-between align-items-center">
-        <h4 style="margin: 20px 0"> Danh Sach Provider</h4>
-        <a href="{{ route('providers.create') }}" class="btn btn-dark">Add</a>
+        <h4 style="margin: 20px 0"> Danh Sach Order</h4>
     </div>
 
     <table class="table">

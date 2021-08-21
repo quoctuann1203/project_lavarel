@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Phone;
+use App\Models\Provider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class PhoneController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['role:admin,editor'])->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +35,7 @@ class PhoneController extends Controller
     public function create()
     {
         $item = new Phone();
-        return View('phone.form', ["item" => $item, 'type' => 'add']);
+        return View('phone.form', ["item" => $item, 'type' => 'add', 'providerSelectData'=>$this->getProviderSelectData()]);
     }
 
     /**
@@ -76,7 +83,14 @@ class PhoneController extends Controller
     public function edit($id)
     {
         $item = Phone::find($id);
-        return View('phone.form', ["item" => $item, 'type' => 'edit']);
+        $data = $this->getProviderSelectData();
+
+        return View('phone.form', ["item" => $item, 'type' => 'edit', 'providerSelectData'=>$data]);
+    }
+
+    public function getProviderSelectData(){
+        $provider= new Provider();
+        return $provider->listSelectData();
     }
 
     /**
@@ -90,7 +104,15 @@ class PhoneController extends Controller
     {
         $this->runValidate($request);
         $item = Phone::find($id);
-        $item->update($request->all());
+        $updateData = $request->all();
+        if ($request->file()) {
+            $fileName = $request->file('image')->getClientOriginalName();
+            $filePath = $request->file('image')->storeAs('uploads', $fileName, 'public');
+            //tham số thứ 3 là chỉ lưu trên disk 'public', tham số thứ 1:  lưu trong thư mục 'uploads' của disk 'public'
+            $updateData['image'] = '/storage/' . $filePath;
+            // $filepath='uploads/'+$fileName --> $profile->avatar = 'storage/uploads/tenfile --> đường dẫn hình trong thư mục public
+        }
+        $item->update($updateData);
         return redirect()->back()->with(['success' => 'Update success!']);
     }
 

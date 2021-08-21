@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['role:admin,editor'])->except('index','show');
+    }
     /**
      * Display a listing of the resource.
      *

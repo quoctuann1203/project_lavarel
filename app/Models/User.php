@@ -19,6 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role_id',
         'password',
     ];
 
@@ -47,5 +48,14 @@ class User extends Authenticatable
 
     public function profile() {
         return $this -> hasOne(Profile::class);
+    }
+    public function role() {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function hasRole($roles = array())
+    {
+        if (in_array($this->role->name, $roles)) return true;
+        return false;
     }
 }

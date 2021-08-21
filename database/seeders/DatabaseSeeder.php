@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Phone;
 use App\Models\Profile;
 use App\Models\Provider;
+use App\Models\Role;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -21,7 +22,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-//        User::factory(10)->create();
+        //        User::factory(10)->create();
+        Role::create(['name' => 'admin']);
+        Role::create(['name' => 'viewer']);
+        Role::create(['name' => 'editor']);
         Provider::factory(10)->create();
         Phone::factory(50)->create();
         User::factory(5)->create();

@@ -24,7 +24,7 @@ class OrderFactory extends Factory
     public function definition()
     {
         $config = Config::get('my_config')['order'];
-        $statuses = $config['status'];
+        $statuses = array_flip($config['status']);
         $shipping = $config['shipping_method'];
         $payment = $config['payment_method'];
 

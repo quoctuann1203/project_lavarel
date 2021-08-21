@@ -7,7 +7,6 @@ $formMethod = $type == 'add' ? 'post' : 'put';
 @section('content')
     <h3 style="margin: 20px 0">{{ Str::ucfirst($type) }} Form</h3>
     <!-- lấy thông tin thông báo đã thêm vào session để hiển thị -->
-    <x-alert></x-alert>
     <!-- lấy thông tin lỗi khi validate hiển thị trên màn hình -->
     <x-show-error></x-show-error>
     <form action="{{ $formAction }}" method="POST" enctype="multipart/form-data">
@@ -32,9 +31,7 @@ $formMethod = $type == 'add' ? 'post' : 'put';
         <div class="form-row" style="margin-bottom: 4px">
             <div class="form-group col-md-6" style="margin-bottom: 4px">
                 <label for="description">Provider</label>
-                <select class="custom-select" name="provider_id" id="">
-                    <option value="{{$item->proivder}}"></option>
-                </select>
+                {!! MyHelper::getSelect('provider_id', $providerSelectData, $item->provider) !!}
             </div>
 
             <div class="form-row" style="margin-bottom: 4px">
@@ -52,6 +49,15 @@ $formMethod = $type == 'add' ? 'post' : 'put';
                         placeholder="Name" value="{{ old('description') ?? $item->description }}">
                 </div>
             </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input " id="image" name="image">
+                <label for="image" class="custom-file-label">{{ $item->image }}</label>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin: 4px 0">
+                    <img src="{{ $item->image }}" alt="" width="300px" height="300px">
+                </div>
+            </div>
             <button type="button" class="btn btn-secondary" style="margin-top: 8px">
                 <a style="text-decoration: none; color: #000000" href="{{ route('phones.index') }}">Back</a>
             </button>
@@ -62,7 +68,7 @@ $formMethod = $type == 'add' ? 'post' : 'put';
 
 @section('js')
     <script>
-        $('#avatar').on('change', function() {
+        $('#image').on('change', function() {
             //get the file name
             var fileName = $(this).val();
             //replace the "Choose a file" label

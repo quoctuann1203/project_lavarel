@@ -21,7 +21,7 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->provider->name }}</td>
-                    <td>{{ $item->price }}</td>
+                    <td>{{ MyHelper::priceFormat($item->price) }}</td>
                     <td>
                         <a style="text-decoration: none"
                             href="{{ Route('phones.edit', ['phone' => $item->id]) }}">Edit</a>

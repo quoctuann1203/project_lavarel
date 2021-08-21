@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ProviderController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['role:admin,editor'])->except('index');
+    }
     /**
      * Display a listing of the resource.
      *

@@ -2,7 +2,6 @@
 @section('content')
     <h3 style="margin: 20px 0"> Edit User</h3>
     <!-- lấy thông tin thông báo đã thêm vào session để hiển thị -->
-    <x-alert></x-alert>
     <!-- lấy thông tin lỗi khi validate hiển thị trên màn hình -->
     <x-show-error></x-show-error>
     <form class="user" action="{{ route('profiles.update', ['profile' => $profile->id]) }}" method="POST"

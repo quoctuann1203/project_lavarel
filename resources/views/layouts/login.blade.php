@@ -13,17 +13,15 @@
 </head>
 <body class="sb-nav-fixed">
     {{--  Header  --}}
-    @include('includes.head')
 <div id="layoutSidenav">
     {{--Sidebar--}}
-    @include('includes.sidebar')
 
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
 
                 {{--Content--}}
-                <x-alert></x-alert>
+
                 @yield('content')
             </div>
         </main>
